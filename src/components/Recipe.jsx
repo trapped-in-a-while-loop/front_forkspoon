@@ -1,22 +1,25 @@
 import React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
-import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
+
+import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import Card from '@material-ui/core/Card';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 function Recipe(props) {
 
@@ -34,7 +37,7 @@ function Recipe(props) {
     },
     media: {
       height: 0,
-      paddingTop: '64.00%', //'56.25%', // 16:9
+      paddingTop: '64.00%',
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -68,14 +71,21 @@ function Recipe(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <Link to={{pathname: `/recipe/${props.id}`}} >
+            <IconButton aria-label="details">
+              <VisibilityIcon />
+            </IconButton>
+          </Link>
         }
         title={props.title}
-        subheader={new Date().getDate() + '/' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear()}
+        subheader={
+          new Intl.DateTimeFormat("en-GB", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit"
+          }).format(new Date(props.createdAt))
+        }
       />
-      {/* TODO: Replace subheader date by DB timestamp */}
       <CardMedia
         className={classes.media}
         image="/static/images/cards/paella.jpg"

@@ -1,37 +1,10 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import { Button, Modal, Form, InputGroup } from 'react-bootstrap';
-
 import IngredientInputs from './IngredientInputs'
 
-const useStyles = makeStyles(theme => ({
-  fabPosition: {
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2)
-  }
-}));
-
 function RecipeForm(props) {
-  const classes = useStyles();
-  const [showForm, setShow] = useState(false);
 
-  const handleShow = () => setShow(true);
-  const closeModal = () => setShow(false);
-
-  const recipeState = {
-    name: "",
-    description: "",
-    category: "",
-    duration: "",
-    ingredients: [{ name: "", amount: "", unit: "" }],
-    instructions: [{ name: "" }],
-    price: ""
-  }
-
+  const recipeState = props.recipe;
   const [recipe, setRecipe] = useState(recipeState);
 
   function handleChange(event) {
@@ -46,10 +19,10 @@ function RecipeForm(props) {
     recipe.instructions = recipe.instructions.map(i => i.name);
     recipe.ingredients = ingredients;
 
-    props.onAdd(recipe);
+    props.onAdd ? props.onAdd(recipe) : props.onUpdate(recipe);
     setRecipe(recipeState);
     event.preventDefault();
-    setShow(false);
+    props.showHandler(false);
   }
 
   /* Manage Instructions array */
@@ -108,9 +81,9 @@ function RecipeForm(props) {
 
   return(
     <>
-      <Modal show={showForm} onHide={closeModal}>
+      <Modal show={props.show} onHide={() => props.showHandler(false)}>
         <Modal.Header className="modal-header" closeButton>
-          <Modal.Title className="modal-title">Add new recipe</Modal.Title>
+          <Modal.Title className="modal-title">{props.modalTitle}</Modal.Title>
         </Modal.Header>
 
         <Form className="modal-body text-center">
@@ -208,14 +181,11 @@ function RecipeForm(props) {
         </Form>
 
         <Modal.Footer className="modal-footer">
-          <Button className="btn btn-secondary" onClick={closeModal}>Close</Button>
+          <Button className="btn btn-secondary" onClick={() => props.showHandler(false)}>Close</Button>
           <Button variant="primary" onClick={handleSave}>Save Changes</Button>
         </Modal.Footer>
       </Modal>
 
-      <Fab color="primary" aria-label="add" onClick={handleShow} className={classes.fabPosition}>
-        <AddIcon />
-      </Fab>
     </>
   );
 }

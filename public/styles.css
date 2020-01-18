@@ -27,6 +27,12 @@ header h1 {
     font-weight: 200;
 }
 
+.page-title {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 footer {
     position: absolute;
     text-align: center;
@@ -107,4 +113,46 @@ form.create-recipe button {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     outline: none;
+}
+
+.recipe_name {
+  color: #4169E1;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 20px;
+}
+
+.recipe_desc {
+  font-family: "Montserrat", sans-serif;
+}
+
+.recipe_keyword {
+  font-weight: bold;
+  color: #4169E1;
+  font-family: "Montserrat", sans-serif;
+}
+
+.recipe_value {
+  font-weight: lighter;
+  font-family: "Montserrat", sans-serif;
+}
+
+.recipe_keyword2 {
+  font-weight: bold;
+  color: #4169E1;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 20px;
+}
+
+.recipe_keyword3 {
+  font-weight: bold;
+  color: #4169E1;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.recipe_nutrient {
+  font-weight: bold;
+  color: #f5ba13;
+  font-family: "Montserrat", sans-serif;
 }
